@@ -24,6 +24,7 @@ Polygon::Polygon()
 {
 }
 
+//一个Polygon由若干个顶点描述
 Polygon::Polygon(std::vector<Position> vertices)
 : Polygon()
 {

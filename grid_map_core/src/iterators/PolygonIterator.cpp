@@ -26,6 +26,7 @@ PolygonIterator::PolygonIterator(
   bufferStartIndex_ = gridMap.getStartIndex();
   Index submapStartIndex;
   Size submapBufferSize;
+  //polygen用于将整个gridmap切分成若干个submap
   findSubmapParameters(polygon, submapStartIndex, submapBufferSize);
   internalIterator_ =
     std::shared_ptr<SubmapIterator>(
@@ -88,8 +89,12 @@ void PolygonIterator::findSubmapParameters(
   Size & bufferSize) const
 {
   (void)(polygon);  // polygon parameter unused, should be removed when used.
+  
+  //Position实际上就是Eigen::Vector2d
   Position topLeft = polygon_.getVertices()[0];
   Position bottomRight = topLeft;
+
+  //遍历polygon的每一个顶点
   for (const auto & vertex : polygon_.getVertices()) {
     topLeft = topLeft.array().max(vertex.array());
     bottomRight = bottomRight.array().min(vertex.array());
